@@ -19,7 +19,21 @@ type RegisterRequest struct {
 	Username string `json:"username" binding:"required"`
 	Password string `json:"password" binding:"required"`
 }
+type LoginRequest struct {
+	MSISDN   string `json:"msisdn" binding:"required"`
+	Password string `json:"password" binding:"required"`
+}
 
+// Register godoc
+// @Summary Register new user
+// @Description Register with MSISDN and username
+// @Tags auth
+// @Accept json
+// @Produce json
+// @Param user body model.User true "Register Request"
+// @Success 201 {object} utils.SuccessResponse
+// @Failure 400 {object} utils.ErrorResponse
+// @Router /register [post]
 func Register(c *gin.Context) {
 	var req RegisterRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
@@ -62,6 +76,17 @@ func Register(c *gin.Context) {
 	})
 }
 
+// Login godoc
+// @Summary Login user
+// @Description Authenticate user with MSISDN and password
+// @Tags auth
+// @Accept json
+// @Produce json
+// @Param login body LoginRequest true "Login Request"
+// @Success 200 {object} utils.SuccessResponse
+// @Failure 400 {object} utils.ErrorResponse
+// @Failure 401 {object} utils.ErrorResponse
+// @Router /login [post]
 func Login(c *gin.Context) {
 	var req struct {
 		MSISDN   string `json:"msisdn" binding:"required"`
@@ -84,6 +109,15 @@ func Login(c *gin.Context) {
 	})
 }
 
+// Me godoc
+// @Summary Get current user profile
+// @Description Get information about the logged in user
+// @Tags auth
+// @Security BearerAuth
+// @Produce json
+// @Success 200 {object} utils.SuccessResponse
+// @Failure 404 {object} utils.ErrorResponse
+// @Router /me [get]
 func Me(c *gin.Context) {
 	userID := c.GetString("user_id")
 
