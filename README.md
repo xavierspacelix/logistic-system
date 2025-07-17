@@ -2,7 +2,7 @@
 
 ## 📦 Logistics System
 
-Sistem backend manajemen logistik dengan layanan terpisah:
+Sistem backend manajemen logistik dengan layanan terpisah 
 
 * `auth-service`: Autentikasi pengguna menggunakan JWT
 * `logistics-service`: Manajemen pengiriman & tarif kurir
